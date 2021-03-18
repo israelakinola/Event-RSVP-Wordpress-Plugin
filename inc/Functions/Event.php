@@ -56,7 +56,7 @@
       }
     }
 
-     // Delete Event Post and all asscoated post meta
+     // Delete Event Post and all associated post meta
     public static function dropEvent($event_id){
       if(wp_delete_post($event_id) != null){
         //check if post deletion was successful
@@ -68,19 +68,21 @@
       }
       
     }
-
-    // This funciton create RSVP form display shortcode 
+    //This method get an event data
+    public static function getEventData($event_id){
+       $post_data = get_post($event_id);
+       return $event = ["event_id"=>$event_id, "event_title"=>$post_data->post_title, "event_venue"=>get_post_meta($event_id,'event_venue',true),"event_date"=>get_post_meta($event_id,'event_date',true), "event_poster"=>get_post_meta($event_id,'event_poster',true)];
+    }
+    // This method create the rsvp shortcode
     public static function zEventRsvpShortcode($atts){
-      //Get The shortcode Atrribute which is the event post id
+      
+      //Get the events data with the shortcode id(event_id) artribute
         $a = shortcode_atts( array(
             'id' => 0,
         ), $atts );
-        $post_data = get_post($a['id']);
-        $event_id = $a['id'];
-        $event_title = $post_data->post_title;
-        $event_venue = get_post_meta($a['id'],'event_venue',true);
-        $event_date = get_post_meta($a['id'],'event_date',true);
-        $event_poster = get_post_meta($a['id'],'event_poster',true);
+        $event = self::getEventData(intval($a['id']));
+
+        \Inc\Utility\FormHandling::rsvpAttendanceFormHandling(intval($a['id']));
 
         //Return the Shortcode Page View Template
         require_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
@@ -93,3 +95,4 @@
         
     }
  }
+
