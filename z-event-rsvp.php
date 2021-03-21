@@ -3,7 +3,7 @@
  * @package  eventRsvp
  */
 /*
-Plugin Name: Event Rsvp 
+Plugin Name: Z Event Rsvp 
 Plugin URI: http://israelakinola.com/plugin
 Description
 Version: 1.0.0

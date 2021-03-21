@@ -7,7 +7,7 @@ namespace Inc\Functions;
 
 class Rsvp{
 
-        //Create RSVP Table
+        //Create RSVP Database Table
         public static function createDbTable(){
             global $wpdb;   
             $table_name = $wpdb->prefix . "rsvp";
@@ -17,9 +17,9 @@ class Rsvp{
     
                     $sql  = "CREATE TABLE $table_name(
                     attendee_id INT(20) AUTO_INCREMENT,
-                    attendee_name VARCHAR(255),
-                    attendee_email VARCHAR(255),
-                    event_id INT(20),
+                    attendee_name VARCHAR(255) NOT NULL,
+                    attendee_email VARCHAR(255) NOT NULL UNIQUE,
+                    event_id INT(20) NOT NULL,
                     PRIMARY KEY(attendee_id))";
         
                     if(!function_exists('dbDelta')) {

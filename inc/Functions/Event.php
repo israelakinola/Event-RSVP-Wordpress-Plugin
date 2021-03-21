@@ -85,8 +85,7 @@
         \Inc\Utility\FormHandling::rsvpAttendanceFormHandling(intval($a['id']));
 
         //Return the Shortcode Page View Template
-        require_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
-   
+        include_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
     }
 
     public function run(){
