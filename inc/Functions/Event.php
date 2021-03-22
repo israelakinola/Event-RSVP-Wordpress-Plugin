@@ -70,9 +70,11 @@
     }
     //This method get an event data
     public static function getEventData($event_id){
-       $post_data = get_post($event_id);
+       $post_data = get_post(112);
        return $event = ["event_id"=>$event_id, "event_title"=>$post_data->post_title, "event_venue"=>get_post_meta($event_id,'event_venue',true),"event_date"=>get_post_meta($event_id,'event_date',true), "event_poster"=>get_post_meta($event_id,'event_poster',true)];
     }
+
+ 
     // This method create the rsvp shortcode
     public static function zEventRsvpShortcode($atts){
       
@@ -80,12 +82,18 @@
         $a = shortcode_atts( array(
             'id' => 0,
         ), $atts );
-        $event = self::getEventData(intval($a['id']));
+        $event_id = $a['id'];
+        $event = self::getEventData($event_id);
 
-        \Inc\Utility\FormHandling::rsvpAttendanceFormHandling(intval($a['id']));
-
-        //Return the Shortcode Page View Template
-        include_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
+         \Inc\Utility\FormHandling::rsvpAttendanceFormHandling($event_id);
+      
+        /**
+         * Return the Shortcode Page View Template. 
+         * The IF statments is to avoid WP getting an event post which doesn't exist.
+         */
+        if($event['event_title']!= '' and $event['event_venue']!= '' and $event['event_date']!= ''){
+          include_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
+        }
     }
 
     public function run(){
