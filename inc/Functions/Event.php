@@ -24,14 +24,13 @@
         $event_title=  $_REQUEST['event-title'];
         $event_date =  $_REQUEST['event-date'];
         $event_venue = $_REQUEST['event-venue'];
-        $event_poster = \Inc\Utility\FormHandling::handleFileUpload();
 
         //Check to see if any of the important event data are not empty
-        if (empty($event_title) or empty($event_venue) or empty($event_date) or is_array($event_poster) ) {
+        if (empty($event_title) or empty($event_venue) or empty($event_date)) {
           echo "Name is empty";
         } else {
           //Create Event Post
-          self::createEventPost($event_title, $event_date,$event_venue,$event_poster);
+          self::createEventPost($event_title, $event_date,$event_venue);
         }
       }
     }
@@ -63,7 +62,6 @@
         //check if post deletion was successful
         delete_post_meta($post_id,'event_date');
         delete_post_meta($post_id,'event_venue');
-        delete_post_meta($post_id,'event_poster');
         Rsvp::deleteRsvpList($event_id);
         return "deleted";
       }
@@ -72,7 +70,7 @@
     //This method get an event data
     public static function getEventData($event_id){
        $post_data = get_post(112);
-       return $event = ["event_id"=>$event_id, "event_title"=>$post_data->post_title, "event_venue"=>get_post_meta($event_id,'event_venue',true),"event_date"=>get_post_meta($event_id,'event_date',true), "event_poster"=>get_post_meta($event_id,'event_poster',true)];
+       return $event = ["event_id"=>$event_id, "event_title"=>$post_data->post_title, "event_venue"=>get_post_meta($event_id,'event_venue',true),"event_date"=>get_post_meta($event_id,'event_date',true)];
     }
 
  
@@ -93,7 +91,12 @@
          * The IF statments is to avoid WP getting an event post which doesn't exist.
          */
         if($event['event_title']!= '' and $event['event_venue']!= '' and $event['event_date']!= ''){
-          include_once  $GLOBALS['plugin_path'] . 'templates/shortcodePage.php';
+          $return_string =  '<form action="'. $_SERVER['REQUEST_URI'].'" method="post">';
+          $return_string .= '<input type="text"  style="display:block; width:80%;" class="form-control" name="attendee_name" placeholder="Enter Name"> <br/>';
+          $return_string .= ' <input style="display:block; width:80%;" type="email" class="form-control" name="attendee_email" aria-describedby="emailHelp" placeholder="Enter email"> </br>';
+          $return_string .= '<button type="submit" class="btn btn-primary">Save My Spot</button> </form>';
+
+          return $return_string;
         }
     }
 

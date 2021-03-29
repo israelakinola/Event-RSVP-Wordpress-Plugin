@@ -7,13 +7,11 @@ self::handleNewEventForm();
 ?>
 
 
-<div class="container-fluid py-4">
-
-    <h2 class="my-4">Events Rsvp</h2>
-
+<div class="container-fluid mt-4 py-4">
+    <h3 class="mb-4">Event RSVP Plugin</h3>
     <!-- ALL EVENTS LISTING -->
-    <div class="d-flex justify-content-between py-4">
-            <h3>All Events</h3>
+    <div class="d-flex justify-content-between pt-4">
+            <h5>All Events</h5>
             <button class="btn btn-primary" id="create-new-event" data-bs-toggle="modal" data-bs-target="#createEventModal">Create New Event</button>
     </div>
 
@@ -21,12 +19,12 @@ self::handleNewEventForm();
     <table class="table table-striped">
         <thead>
             <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Date & Time</th>
-            <th scope="col">Venue</th>
-            <th scope="col">RSVP</th>
-            <th scope="col">Dispay Shortcode</th>
-            <th scope="col">Action</th>
+            <th class="table-title" scope="col">Title</th>
+            <th class="table-title" scope="col">Date & Time</th>
+            <th class="table-title" scope="col">Venue</th>
+            <th class="table-title" scope="col">RSVP</th>
+            <th class="table-title" scope="col">RSVP Dispay Shortcode</th>
+            <th class="table-title" scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -39,12 +37,12 @@ self::handleNewEventForm();
                   $event_id = get_the_ID(); 
           ?>
         <tr>
-          <th scope="row"><?php the_title( )?></th>
-          <td><?php echo get_post_meta(get_the_ID(),'event_date',true)  ?></td>
-          <td><?php echo get_post_meta(get_the_ID(),'event_venue',true)  ?></td>
-          <td><button data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="showRsvpList(event, <?php echo get_the_ID() ?>)" class='btn btn-primary' <?php if(\Inc\Functions\Rsvp::getRsvpCount(get_the_ID()) < 1): echo 'disabled'; endif; ?>><?php echo \Inc\Functions\Rsvp::getRsvpCount(get_the_ID()) ?></button></td>
-          <td>[z-event-rsvp id = <?php echo get_the_ID( )?>]</td>
-          <td><button class='btn btn-danger' onclick="dropEvent(<?php echo get_the_ID()  ?>)" data-bs-toggle="modal" data-bs-target="#dropEventModal">Delete Event</button>
+          <td class="table-data"><?php the_title( )?></th>
+          <td class="table-data"><?php echo get_post_meta(get_the_ID(),'event_date',true)  ?></td>
+          <td class="table-data"><?php echo get_post_meta(get_the_ID(),'event_venue',true)  ?></td>
+          <td class="table-data"><button data-bs-toggle="modal" data-bs-target="#exampleModalLong" onclick="showRsvpList(event, <?php echo get_the_ID() ?>)" class='btn btn-primary' <?php if(\Inc\Functions\Rsvp::getRsvpCount(get_the_ID()) < 1): echo 'disabled'; endif; ?>><?php echo \Inc\Functions\Rsvp::getRsvpCount(get_the_ID()) ?></button></td>
+          <td class="table-data">[z-event-rsvp id = <?php echo get_the_ID( )?>]</td>
+          <td class="table-data"><button class='btn btn-danger' onclick="dropEvent(<?php echo get_the_ID()  ?>)" data-bs-toggle="modal" data-bs-target="#dropEventModal">Delete Event</button>
         </tr>
         
         <?php
@@ -82,11 +80,6 @@ self::handleNewEventForm();
               <div class="mb-3">
                 <label for="event-venue" class="form-label">Venue *</label>
                 <input type="text" name="event-venue" class="form-control" id="event-venue" aria-describedby="eventTitle" requred>
-                <span class="error"></span>
-              </div>
-              <div class="mb-3">
-                <label for="event-venue" class="form-label">Event Poster *</label>
-                <input type="file" name="event-poster" class="form-control" id="event-venue" aria-describedby="eventTitle" requred>
                 <span class="error"></span>
               </div>
             </div>

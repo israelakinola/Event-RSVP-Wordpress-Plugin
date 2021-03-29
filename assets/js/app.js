@@ -49,7 +49,7 @@ function rsvpListHtml(data){
     tbody.innerHTML = '';
     for(let i = 0; i< data.length; i++ ){
         tbody.innerHTML += `  <tr>
-                            <th scope="row">${i+1 }</th>
+                            <td>${i+1 }</td>
                             <td>${data[i].attendee_name}</td>
                             <td>${data[i].attendee_email }</td>
                         </tr>`

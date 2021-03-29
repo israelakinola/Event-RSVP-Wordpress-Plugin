@@ -8,3 +8,33 @@
     max-width: 200px;
 }
 
+.table-title{
+    color: #666666!important;
+    font-weight: 400;
+}
+
+tr{
+    display: flex;
+    align-items: center;
+    background-color: #fff!important;
+}
+.table {
+    padding: .5rem .5rem;
+    background-color:#fff!important;
+    border-bottom-width: 1px;
+}
+th{
+    flex: 1;
+}
+td{
+    flex: 1;
+    height: 60px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+.table-data{
+    font-weight: 600;
+    background-color: #fff!important;
+    flex: 1;
+}
